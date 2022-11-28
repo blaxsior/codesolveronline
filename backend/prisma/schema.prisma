@@ -15,6 +15,7 @@ model Problem {
   title String 
   description String
   tests TestCase[]
+  initCodes InitCode[] 
 }
 
 model TestCase {
@@ -24,3 +25,18 @@ model TestCase {
   output String
 }
 
+model InitCode {
+  id Int @id
+  type String
+  code String
+  problems Problem[]
+}
+
+model PInitCodes {
+  problem Problem @relation(fields:[pid], references: [id])
+  initcode InitCode @relation(fields: [cid], references: [id])
+  pid Int
+  cid Int
+
+  @@id([pid, cid])
+}
