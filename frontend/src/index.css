@@ -34,3 +34,32 @@ html, body {
   align-items: center;
   margin-bottom:4rem;
 }
+
+
+.button {
+  text-align: center;
+  display: block;
+  padding: 5px 7.5px;
+  border:2px gray solid;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  background-color: white;
+  color:gray;
+  width:fit-content;
+}
+
+.button:is(:hover, :active) {
+  border-color:black;
+  color: black;
+}
+
+.button:active {
+  background-color: rgb(212, 212, 212);
+}
+
+.button:disabled {
+  background-color: rgb(207, 207, 207);
+  border-color: gray;
+  color: gray;
+}

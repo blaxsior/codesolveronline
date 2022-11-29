@@ -1,0 +1,22 @@
+.desc_sect{
+    height: 100%;
+    /* width: 100%; */
+    display:flex;
+    flex-flow:column nowrap;
+    flex-grow: 1;
+    padding:3rem 2rem;
+}
+
+.grid-container {
+    font-size:large;
+    display:grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 1rem;
+}
+
+.text-box {
+    resize:none;
+    height:500px;
+}
+
+@import url(https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css);

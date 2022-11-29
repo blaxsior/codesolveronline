@@ -3,18 +3,17 @@
     /* position: absolute; */
     top:0;
     left:0;
-    width:100%;
+    width:50%;
     height: 100%;
     resize: horizontal;
-    max-width: 60%;
-    min-width: 30%;
+    max-width: 70%;
+    min-width: 25%;
     overflow-y:auto;
     overflow-x: hidden;
     z-index:100;
 }
 
 .title {
-    text-align: center;
     background-color: rgb(199, 199, 199);
     padding:0.5rem 1rem;
     margin-bottom: 1.5rem;
@@ -23,5 +22,5 @@
 }
 
 .mkdn {
-    margin: 10px;
+    margin: 2rem;
 }

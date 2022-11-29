@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AceEditor from 'react-ace';
 import styles from './CodeEditSection.module.css';
 
@@ -15,8 +15,6 @@ import "ace-builds/webpack-resolver";
 import "ace-builds/src-min-noconflict/mode-c_cpp";
 import "ace-builds/src-min-noconflict/mode-javascript";
 import "ace-builds/src-min-noconflict/mode-python";
-
-
 
 const CodeEditSection: React.FC = (props) => {
     const [lang, setLang] = useState('c_cpp');
@@ -58,6 +56,10 @@ const CodeEditSection: React.FC = (props) => {
                     useWorker: true
                 }}
             />
+            <div className={styles['down-form']}>
+                <div className={styles['result-line']}>section2</div>
+                <button className='button'>제출하기</button>
+            </div>
         </section>
     )
 }
