@@ -3,14 +3,21 @@
     --border-black-td: 2px black solid 0px;
 }
 
-.container {
-    display:flex;
-    flex-direction: row;
-    margin: 0 70px; 
+.layout {
+    display: flex;
+    flex-flow: column nowrap;
+    height:100%;
 }
+
+.container {
+    height:100%;
+    position:relative;
+}
+
 .navigation {
     align-self:flex-end;
 }
+
 .navigation > ul {
     /* container-type:inline-size;
     container-name: navigation; */

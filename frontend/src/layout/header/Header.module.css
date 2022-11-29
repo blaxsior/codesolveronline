@@ -1,6 +1,6 @@
 .top_tab {
-    position: sticky;
-    top: -1px;
+    position:relative;
+    /* top: -1px; */
 
     display: flex;
     flex-flow: row wrap;
