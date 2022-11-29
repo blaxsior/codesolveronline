@@ -11,32 +11,34 @@ datasource db {
 }
 
 model Problem {
-  id Int @id @default(autoincrement())
-  title String 
+  id          Int          @id @default(autoincrement())
+  title       String
   description String
-  tests TestCase[]
-  initCodes InitCode[] 
+  tests       TestCase[]
+  initCodes   InitCode[]
+  PInitCodes  PInitCodes[]
 }
 
 model TestCase {
-  pid Int @id 
+  pid     Int     @id
   problem Problem @relation(fields: [pid], references: [id], onDelete: Cascade)
-  input String
-  output String
+  input   String
+  output  String
 }
 
 model InitCode {
-  id Int @id
-  type String
-  code String
-  problems Problem[]
+  id         Int          @id
+  type       String
+  code       String
+  problems   Problem[]
+  PInitCodes PInitCodes[]
 }
 
 model PInitCodes {
-  problem Problem @relation(fields:[pid], references: [id])
+  problem  Problem  @relation(fields: [pid], references: [id])
+  pid      Int
   initcode InitCode @relation(fields: [cid], references: [id])
-  pid Int
-  cid Int
+  cid      Int
 
   @@id([pid, cid])
 }
