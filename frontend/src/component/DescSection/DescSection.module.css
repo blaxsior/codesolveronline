@@ -1,17 +1,33 @@
 .des_sect {
     border-right: gray 3px solid;
-    /* position: absolute; */
-    top:0;
-    left:0;
-    width:50%;
-    height: 100%;
+
+    height:100%;
     resize: horizontal;
+
+    width:50%;
     max-width: 70%;
     min-width: 25%;
     overflow-y:auto;
     overflow-x: hidden;
     z-index:100;
 }
+
+@media (width<800px) {
+    .des_sect {
+        resize:none;
+
+        width:100%;
+        max-width: initial;
+    
+        min-height: 200px;
+        height:300px;
+        border-right:none;
+        margin:0;
+        border-bottom:gray 3px solid;
+        flex-flow: column nowrap;
+    }
+}
+
 
 .title {
     background-color: rgb(199, 199, 199);

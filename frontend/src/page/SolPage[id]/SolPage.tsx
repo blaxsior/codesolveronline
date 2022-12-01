@@ -1,6 +1,6 @@
 import CodeEditSection from '../../component/CodeEditSection/CodeEditSection';
 import DescSection from '../../component/DescSection/DescSection';
-import styles from './SolPage.module.css';
+import styles from '../page.module.css';
 
 const SolPage: React.FC = (props) => {
     return (

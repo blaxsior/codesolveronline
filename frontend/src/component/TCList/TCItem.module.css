@@ -1,0 +1,19 @@
+.item-con {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    padding:0.2rem;
+    border: 2px solid gray;
+    margin:0.3rem 0;
+    justify-content: space-between;
+}
+
+.item-con label{
+    display:inline;
+    margin-right:0.5rem;
+}
+
+.item-con input {
+    display:inline;
+    width: 150px;
+}

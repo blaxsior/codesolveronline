@@ -1,17 +1,28 @@
 .desc_sect{
     height: 100%;
-    /* width: 100%; */
+    /* position: absolute; */
+    right:0;
+    top:0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-grow: 1;
     display:flex;
     flex-flow:column nowrap;
-    flex-grow: 1;
     padding:3rem 2rem;
 }
+@media (width<800px) {
+    .desc_sect {
+        overflow: hidden;
+    }
+}
+
 
 .grid-container {
     font-size:large;
     display:grid;
     grid-template-columns: 4rem 1fr;
     gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .text-box {

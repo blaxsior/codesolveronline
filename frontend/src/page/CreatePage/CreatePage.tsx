@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DescEditSection from '../../component/DescEditSection/DescEditSection';
 import DescSection from '../../component/DescSection/DescSection';
-import styles from './CreatePage.module.css';
+import styles from '../page.module.css';
 
 const CreatePage: React.FC = (props) => {
     const [title, setTitle] = useState('');

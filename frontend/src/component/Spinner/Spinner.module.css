@@ -1,7 +1,6 @@
 .spinner {
     width: 100px;
     height: 100px;
-    position:relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +15,6 @@
     border-top-color: gray;
     border-radius: 50%;
     animation: sp1 1.3s linear infinite;
-
 }
 
 .text{

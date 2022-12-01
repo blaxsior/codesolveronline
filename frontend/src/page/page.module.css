@@ -4,3 +4,10 @@
     display: flex;
     flex-flow: row nowrap;
 }
+
+
+@media (width<800px) {
+    .page-layout {
+        display:block;
+    }
+}

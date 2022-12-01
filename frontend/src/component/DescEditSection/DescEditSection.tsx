@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-router-dom';
+import TCList from '../TCList/TCList';
 import styles from './DescEditSection.module.css';
 
 interface IDescSect {
@@ -16,7 +17,6 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
     const titleChangeHandler: React.ChangeEventHandler<HTMLInputElement>
         = (e) => {
             props.onTitleChange(e.target.value);
-            console.log(e.target.value);
         };
 
     return (
@@ -26,13 +26,13 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
                     <label htmlFor='title'>제목</label>
                     <input id='title' name='title' onChange={titleChangeHandler} />
                     <label htmlFor='description'>내용</label>
-                 
                     <textarea
                         id='description'
                         name='description'
                         className={styles['text-box']}
-                        onChange={descChangeHandler}/>
+                        onChange={descChangeHandler} />
                 </div>
+                    <TCList />
                 <button className='button'
                     type="submit">제출하기</button>
             </Form>

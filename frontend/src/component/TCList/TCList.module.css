@@ -1,0 +1,47 @@
+* {
+    --d-color: rgb(160,160,160);
+    --a-color: black;
+}
+
+.btn {
+    border: 2px solid var(--d-color);
+    border-radius: 5px;
+    font-size:medium;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.1rem 0.35rem;
+    /* height: 0; */
+    /* padding-bottom: calc(0.5rem + ); */
+}
+
+.ilist {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.ilist > legend {
+    display:inline
+}
+
+.add {
+    background-color: white;
+    color: var(--d-color);
+}
+
+.add:active {
+    color: var(--a-color);
+    border-color: var(--a-color);
+}
+
+.sub {
+    background-color:  var(--d-color);
+    color: white;
+    justify-self: flex-end;
+    align-self: flex-end;
+}
+
+.sub:active {
+    background: var(--a-color);
+    border-color: var(--a-color);
+}
