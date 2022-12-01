@@ -16,7 +16,7 @@
 
 .text-box {
     resize:none;
-    height:500px;
+    height:250px;
 }
 
 @import url(https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css);
