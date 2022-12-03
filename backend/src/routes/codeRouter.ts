@@ -5,8 +5,10 @@ const sendData : RequestHandler = (req, res, next) => {
     return res.send(req.body);
 }
 
-export const codeRouter = Router();
+const codeRouter = Router();
 codeRouter.post('/', sendData);
 codeRouter.get('/',(req,res,next) =>{
     res.send("hello!");
 })
+
+export default codeRouter;

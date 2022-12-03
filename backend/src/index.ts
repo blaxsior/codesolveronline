@@ -1,7 +1,7 @@
 import e from 'express';
 import { db } from './db/index.db.js';
 import cors from 'cors';
-import { codeRouter } from './routes/codeRouter.js';
+import codeRouter from './routes/codeRouter.js';
 import { ScoringProvider } from './scoring/ScoringProvider.js';
 
 const server = e();
@@ -34,8 +34,15 @@ catch(err){
 // console.log("success is ", success);
 // await sp.exit();
 
+server.use((req,res,next) => {
+    console.log(req.originalUrl);
+    next();
+})
+
 server.use('/scoring', codeRouter);
-server.use('/', (req,res,next) =>{
-    res.send("hello!");
+
+
+server.use('*', (req,res,next) =>{
+    res.send("error!");
 })
 server.listen(5000);

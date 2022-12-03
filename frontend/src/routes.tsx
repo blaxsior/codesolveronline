@@ -22,7 +22,7 @@ const browserRouter = createBrowserRouter([
             {
                 path:'create',
                 element: <CreatePage/>,
-                // action: createPageAction
+                action: createPageAction
             },
             {
                 path:'list',

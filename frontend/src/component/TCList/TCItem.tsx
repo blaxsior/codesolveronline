@@ -1,12 +1,13 @@
 import { ITestcase } from "../../interfaces/Testcase.interface";
 import bs from './TCList.module.css';
 import styles from './TCItem.module.css';
+import React from "react";
 interface ITCItem {
     item: ITestcase;
     idx: number;
     onChange: (idx: number,
         type: 'input' | 'output' | 'type',
-        e: React.ChangeEvent<HTMLInputElement>) => void;
+        e: React.ChangeEvent<HTMLInputElement>| React.ChangeEvent<HTMLSelectElement>) => void;
     onRemove: (idx: number, e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
@@ -15,29 +16,30 @@ const TCItem: React.FC<ITCItem> = ({ item, idx, onChange, onRemove }) => {
     return <span key={idx}
         className={styles['item-con']}>
         <span>
-            <label htmlFor="testcases[][input]">입력</label>
+            <label htmlFor={`testcases[${idx}][input]`}>입력</label>
             <input
                 type="text"
-                name="testcases[][input]"
-                id="testcases[][input]"
+                name={`testcases[${idx}][input]`}
+                id={`testcases[${idx}][input]`}
                 value={item.input}
                 onChange={e => onChange(idx, 'input', e)} />
         </span>
         <span>
-            <label htmlFor="testcases[][output]">출력</label>
+            <label htmlFor={`testcases[${idx}][output]`}>출력</label>
             <input
                 type="text"
-                name="testcases[][output]"
+                name={`testcases[${idx}][output]`}
                 value={item.output}
                 onChange={e => onChange(idx, 'output', e)} />
         </span>
         <span>
-            <label htmlFor="testcases[][type]">타입</label>
-            <input
-                type="checkbox"
-                name="testcases[][type]"
-                // placeholder="T 또는 F로 표기"
-                onChange={e => onChange(idx, 'type', e)} />
+            <label htmlFor={`testcases[${idx}][type]`}>타입</label>
+            <select 
+            name={`testcases[${idx}][type]`} 
+            onChange={e => onChange(idx, 'type', e)}>
+                <option value='true'>true</option>
+                <option value='false'>false</option>
+            </select>
         </span>
         <button
             type="button"
