@@ -33,7 +33,10 @@ const TCItem: React.FC<ITCItem> = ({ item, idx, onChange, onRemove }) => {
         </span>
         <span>
             <label htmlFor="testcases[][type]">타입</label>
-            <input type="text" name="testcases[][type]"
+            <input
+                type="checkbox"
+                name="testcases[][type]"
+                // placeholder="T 또는 F로 표기"
                 onChange={e => onChange(idx, 'type', e)} />
         </span>
         <button

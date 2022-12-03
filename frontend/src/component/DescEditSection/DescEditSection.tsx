@@ -18,10 +18,10 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
         = (e) => {
             props.onTitleChange(e.target.value);
         };
-
+    
     return (
         <section className={styles['desc_sect']}>
-            <Form>
+            <Form method='post'>
                 <div className={styles['grid-container']}>
                     <label htmlFor='title'>제목</label>
                     <input id='title' name='title' onChange={titleChangeHandler} />
@@ -33,7 +33,7 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
                         onChange={descChangeHandler} />
                 </div>
                     <TCList />
-                <button className='button'
+                <button className={`button ${styles['']}`}
                     type="submit">제출하기</button>
             </Form>
         </section>

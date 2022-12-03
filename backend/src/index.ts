@@ -1,5 +1,6 @@
 import e from 'express';
 import { db } from './db/index.db.js';
+import { codeRouter } from './routes/codeRouter.js';
 import { ScoringProvider } from './scoring/ScoringProvider.js';
 
 const server = e();
@@ -17,19 +18,21 @@ catch(err){
     console.error(`[error] ${err}`)
 }
 
-const code = `#include <stdio.h>
-int main() {
-    printf("hello");
-}`;
+// const code = `#include <stdio.h>
+// int main() {
+//     printf("hello");
+// }`;
 
-const code2 = "console.log('hello');";
+// const code2 = "console.log('hello');";
 
 
-const sp = ScoringProvider('javascript')!;
-await sp.init(code2);
-const success = await sp.run({output:"hello\n",type: true});
-console.log("success is ", success);
-await sp.exit();
+// const sp = ScoringProvider('javascript')!;
+// await sp.init(code2);
+// const success = await sp.run({output:"hello\n",type: true});
+// console.log("success is ", success);
+// await sp.exit();
+
+server.use('/scoring', codeRouter);
 
 
 server.listen(5000);

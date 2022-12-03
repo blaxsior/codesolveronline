@@ -32,6 +32,8 @@ const TCList: React.FC<ITCListProps> = (props) => {
 
     const valueHandler = (idx: number, type: 'input' | 'output' | 'type', e: React.ChangeEvent<HTMLInputElement>) => {
         const data = [...testcases];
+        console.log(e.target.value);
+        console.log(e.target);
         data[idx][type] = e.target.value;
         setTestCases(data);
     }
