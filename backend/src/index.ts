@@ -20,11 +20,16 @@ catch(err){
 const code = `#include <stdio.h>
 int main() {
     printf("hello");
-}`
+}`;
 
-const sp = ScoringProvider('c_cpp')!;
-sp.init(code);
-const success = sp.run({output:"hello",type:true});
-console.log(success);
-// sp.exit();
-// server.listen(5000);
+const code2 = "console.log('hello');";
+
+
+const sp = ScoringProvider('javascript')!;
+await sp.init(code2);
+const success = await sp.run({output:"hello\n",type: true});
+console.log("success is ", success);
+await sp.exit();
+
+
+server.listen(5000);

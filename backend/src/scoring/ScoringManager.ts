@@ -1,9 +1,10 @@
-import { exec } from "child_process";
+import { exec as _exec } from "child_process";
 import { randomBytes } from "crypto";
 import { resolve } from "path";
 import { ITestCase } from "../interfaces/db.interface.js";
+import { promisify } from 'util';
 
-// import {promisify} from 'util';
+const exec = promisify(_exec);
 
 export interface ISManagerInputParams {
     extension: string,
@@ -45,15 +46,15 @@ export class ScoringManager {
     //  * @param extension 사용자의 입력
     //  * @returns 성공 여부
      */
-    private createCodeFile(code: string, timeout: number = 3000): boolean {
+    private async createCodeFile(code: string, timeout: number = 3000): Promise<boolean> {
         let success = true;
-        exec(`cat > ${ScoringManager.temp_dir}/${this.id}.${this.extension} << EOF\n${code}\nEOF`,
-            (err, stdout, stderr) => {
-                if (err) {
-                    console.error(stderr);
-                    success = false;
-                }
-            })
+        try {
+            await exec(`cat > ${ScoringManager.temp_dir}/${this.id}.${this.extension} << EOF\n${code}\nEOF`, { timeout });
+        }
+        catch (err) {
+            console.log("create code file");
+            success = false;
+        }
         return success;
     }
 
@@ -61,16 +62,18 @@ export class ScoringManager {
      * 파일 생성 등 초기화 목적의 코드
      * code: 대응되는 파일.
      */
-    init(code: string, timeout: number = 3000) {
-        let success = this.createCodeFile(code); // 파일 생성 여부 검사
+    async init(code: string, timeout: number = 3000): Promise<boolean> {
+        let success = await this.createCodeFile(code); // 파일 생성 여부 검사
         if (success && this.compile_str) {
             // 컴파일이 필요한 경우에는 컴파일을 진행.
-            exec(this.compile_str, { timeout }, (err, stdout, stderr) => {
-                if (err) {
-                    console.error(stderr);
-                    success = false;
-                }
-            })
+
+            try {
+                await exec(this.compile_str, { timeout });
+            }
+            catch (err) {
+                console.log("init");
+                success = false;
+            }
         }
         return success;
     }
@@ -80,32 +83,38 @@ export class ScoringManager {
      * @param tc testcase
      * @param timeout 시간 제한
      */
-    run(tc: ITestCase, timeout: number = 5000) {
+    async run(tc: ITestCase, timeout: number = 5000) {
         let success = true;
-
-        exec(`${tc.input && `echo ${tc.input} |`} ${this.run_str}`, { timeout }, (err, stdout, stderr) => {
+        const code = `${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`;
+        console.log(code);
+        try {
+            const { stdout, stderr } = await exec(`${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`, { timeout });
+            if ((stdout === tc.output) !== tc.type) {
+                console.log(stdout);
+                console.log(tc.output)
+                console.log(stdout === tc.output);
+                console.log(tc.type);
+                console.log((stdout === tc.output) != tc.type);
+                success = false;
+            }
+        }
+        catch (err) {
             if (err) {
                 // 나중에 에러 이유 등도 알 수 있도록 할 수 있다면...
-                console.error(stderr);
-                success = false;
-                return;
-            }
-            //결과 값이 다르다면
-            if ((stdout === tc.output) !== tc.type) {
+                console.error("run")
                 success = false;
             }
-        });
+        }
         return success;
     }
 
-    exit() {
+    async exit() {
         let success = true;
 
-        exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str}`, (err, stdout, stderr) => {
-            if (err) {
-                console.error(stderr);
+        exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`)
+        .catch((err) => {
+                console.log("exit");
                 success = false;
-            }
         });
         return success;
     }
