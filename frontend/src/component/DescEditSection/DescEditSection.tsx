@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Form } from 'react-router-dom';
 import TCList from '../TCList/TCList';
@@ -18,10 +19,17 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
         = (e) => {
             props.onTitleChange(e.target.value);
         };
-    
+
+    const submitHandler : React.FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault();
+        const data = e.target;
+        const result = await axios.post('/server/scoring', {a: 1, b: 2});
+        console.log(result.data);
+    }
+
     return (
         <section className={styles['desc_sect']}>
-            <Form method='post'>
+            <Form method='post' onSubmit={submitHandler}>
                 <div className={styles['grid-container']}>
                     <label htmlFor='title'>제목</label>
                     <input id='title' name='title' onChange={titleChangeHandler} />

@@ -1,10 +1,12 @@
 import e from 'express';
 import { db } from './db/index.db.js';
+import cors from 'cors';
 import { codeRouter } from './routes/codeRouter.js';
 import { ScoringProvider } from './scoring/ScoringProvider.js';
 
 const server = e();
 
+server.use(cors());
 server.use(e.urlencoded({extended: true}));
 server.use(e.json());
 server.use(e.static("public", { extensions:['js']}));
@@ -33,6 +35,7 @@ catch(err){
 // await sp.exit();
 
 server.use('/scoring', codeRouter);
-
-
+server.use('/', (req,res,next) =>{
+    res.send("hello!");
+})
 server.listen(5000);

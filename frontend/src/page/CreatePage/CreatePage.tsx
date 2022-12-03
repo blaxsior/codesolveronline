@@ -8,7 +8,7 @@ import styles from '../page.module.css';
 
 export const action : ActionFunction = async ({params, request}) => {
     const data = await request.formData();
-    const result = await axios.post('/server/scoring', data);
+    const result = await axios.post('/api/scoring', data);
     console.log(result.status);
     console.log(result.data);
 }
@@ -16,7 +16,6 @@ export const action : ActionFunction = async ({params, request}) => {
 const CreatePage: React.FC = (props) => {
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
-
   
     const titleChange = (str: string) => {
         setTitle(str);
