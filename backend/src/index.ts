@@ -1,5 +1,6 @@
 import e from 'express';
-import { db } from './db/index.db';
+import { db } from './db/index.db.js';
+import { ScoringProvider } from './scoring/ScoringProvider.js';
 
 const server = e();
 
@@ -16,4 +17,14 @@ catch(err){
     console.error(`[error] ${err}`)
 }
 
-server.listen(5000);
+const code = `#include <stdio.h>
+int main() {
+    printf("hello");
+}`
+
+const sp = ScoringProvider('c_cpp')!;
+sp.init(code);
+const success = sp.run({output:"hello",type:true});
+console.log(success);
+// sp.exit();
+// server.listen(5000);

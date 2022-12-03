@@ -24,9 +24,8 @@ model TestCase {
   problem Problem @relation(fields: [pid], references: [id], onDelete: Cascade)
   input   String
   output  String
-  type    String
-  // 테스트 케이스의 목적이 맞는 것인지 아닌지 여부
-  // t, f 등으로 나타낼 예정
+  type    Boolean
+  // 테스트케이스가 맞는 경우 혹은 틀리는 경우를 의미
 }
 
 model InitCode {

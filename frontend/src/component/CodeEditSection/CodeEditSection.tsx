@@ -46,7 +46,7 @@ const CodeEditSection: React.FC = (props) => {
             <AceEditor
                 className={styles['editor']}
                 mode={lang}
-                theme="xcode"
+                theme={theme}
                 name="editor"
                 editorProps={{ $blockScrolling: true }}
                 setOptions={{
