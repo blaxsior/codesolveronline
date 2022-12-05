@@ -23,6 +23,10 @@ const TCList: React.FC<ITCListProps> = (props) => {
     const remHandler = (idx: number, e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         //idx 위치에서 하나 제거.
+        if(testcases.length <= 1)
+        {
+            return;
+        }
         setTestCases(prev => {
             const cur = [...prev];
             cur.splice(idx, 1);

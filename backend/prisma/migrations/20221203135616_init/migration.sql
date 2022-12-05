@@ -1,29 +1,24 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "Problem" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL
+);
 
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "User";
-PRAGMA foreign_keys=on;
+-- CreateTable
+CREATE TABLE "TestCase" (
+    "pid" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "input" TEXT NOT NULL,
+    "output" TEXT NOT NULL,
+    "type" BOOLEAN NOT NULL,
+    CONSTRAINT "TestCase_pid_fkey" FOREIGN KEY ("pid") REFERENCES "Problem" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 -- CreateTable
 CREATE TABLE "InitCode" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "type" TEXT NOT NULL,
     "code" TEXT NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "PInitCodes" (
-    "pid" INTEGER NOT NULL,
-    "cid" INTEGER NOT NULL,
-
-    PRIMARY KEY ("pid", "cid"),
-    CONSTRAINT "PInitCodes_pid_fkey" FOREIGN KEY ("pid") REFERENCES "Problem" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "PInitCodes_cid_fkey" FOREIGN KEY ("cid") REFERENCES "InitCode" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

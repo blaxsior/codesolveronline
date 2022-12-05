@@ -2,10 +2,9 @@ import { ScoringManager } from './ScoringManager.js';
 import { JsScoringManager } from './supported/JsScoringManager.js';
 import { CScoringManager } from './supported/CScoringManager.js';
 import { PythonScoringManager} from './supported/PythonScoringManager.js';
+import { Lang } from '../interfaces/input.interface.js';
 
-type Lang = "c_cpp"|"javascript"|"python";
-
-export const ScoringProvider = (lang: Lang): ScoringManager|null => {
+export const ScoringProvider = (lang: Lang|string): ScoringManager|null => {
     switch(lang)
     {
         case "c_cpp":

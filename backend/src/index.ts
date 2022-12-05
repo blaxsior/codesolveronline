@@ -3,6 +3,7 @@ import { db } from './db/index.db.js';
 import cors from 'cors';
 import codeRouter from './routes/codeRouter.js';
 import { ScoringProvider } from './scoring/ScoringProvider.js';
+import { InitCodeController } from './controller/initcode.controller.js';
 
 const server = e();
 
@@ -39,7 +40,7 @@ server.use((req,res,next) => {
     next();
 })
 
-server.use('/scoring', codeRouter);
+server.use('/create', codeRouter);
 
 
 server.use('*', (req,res,next) =>{

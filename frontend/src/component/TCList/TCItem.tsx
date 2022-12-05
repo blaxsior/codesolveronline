@@ -6,7 +6,7 @@ interface ITCItem {
     item: ITestcase;
     idx: number;
     onChange: (idx: number,
-        type: 'input' | 'output' | 'type',
+        type: keyof ITestcase,
         e: React.ChangeEvent<HTMLInputElement>| React.ChangeEvent<HTMLSelectElement>) => void;
     onRemove: (idx: number, e: React.MouseEvent<HTMLButtonElement>) => void
 }
@@ -44,6 +44,7 @@ const TCItem: React.FC<ITCItem> = ({ item, idx, onChange, onRemove }) => {
         <button
             type="button"
             className={`${bs['btn']} ${bs['sub']}`}
+            disabled={idx === 0}
             onClick={e => onRemove(idx, e)}>-</button>
     </span>;
     // 우선 분리 X

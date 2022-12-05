@@ -28,6 +28,9 @@
     background-color: white;
     color: var(--d-color);
 }
+.add:hover{
+    border-color: var(--a-color);
+}
 
 .add:active {
     color: var(--a-color);
@@ -44,4 +47,10 @@
 .sub:active {
     background: var(--a-color);
     border-color: var(--a-color);
+}
+
+.sub:disabled {
+    background-color: white;
+    color:white;
+    border-color: white;
 }

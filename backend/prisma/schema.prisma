@@ -15,32 +15,31 @@ model Problem {
   title       String
   description String
   tests       TestCase[]
-  initCodes   InitCode[]
-  PInitCodes  PInitCodes[]
+
+  initCodes  InitCode[]
 }
 
 model TestCase {
-  pid     Int     @id
+  pid     Int     @id @default(autoincrement())
   problem Problem @relation(fields: [pid], references: [id], onDelete: Cascade)
-  input   String
+  input   String?
   output  String
   type    Boolean
   // 테스트케이스가 맞는 경우 혹은 틀리는 경우를 의미
 }
 
 model InitCode {
-  id         Int          @id
+  id         Int          @id @default(autoincrement())
   type       String
   code       String
   problems   Problem[]
-  PInitCodes PInitCodes[]
 }
 
-model PInitCodes {
-  problem  Problem  @relation(fields: [pid], references: [id])
-  pid      Int
-  initcode InitCode @relation(fields: [cid], references: [id])
-  cid      Int
+// model PInitCodes {
+//   problem  Problem  @relation(fields: [pid], references: [id])
+//   pid      Int
+//   initcode InitCode @relation(fields: [cid], references: [id])
+//   cid      Int
 
-  @@id([pid, cid])
-}
+//   @@id([pid, cid])
+// }

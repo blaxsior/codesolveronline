@@ -1,7 +1,7 @@
 import { exec as _exec } from "child_process";
 import { randomBytes } from "crypto";
 import { resolve } from "path";
-import { ITestCase } from "../interfaces/db.interface.js";
+import { ITestCase } from "../interfaces/input.interface.js";
 import { promisify } from 'util';
 
 const exec = promisify(_exec);

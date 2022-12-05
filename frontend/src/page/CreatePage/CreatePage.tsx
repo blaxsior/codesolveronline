@@ -11,7 +11,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     const darr = [...data] as string[][];
     const urlparams = new URLSearchParams(darr).toString();
     
-    const result = await axios.post('/scoring', urlparams, {
+    const result = await axios.post('/create', urlparams, {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         }

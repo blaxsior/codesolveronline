@@ -30,6 +30,7 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
                         id='description'
                         name='description'
                         className={styles['text-box']}
+                        spellCheck='false'
                         onChange={descChangeHandler} />
                 </div>
                     <TCList />
