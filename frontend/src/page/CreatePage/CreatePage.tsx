@@ -10,8 +10,8 @@ export const action: ActionFunction = async ({ request, params }) => {
     const data = (await request.formData()).entries();
     const darr = [...data] as string[][];
     const urlparams = new URLSearchParams(darr).toString();
-    
-    const result = await axios.post('/create', urlparams, {
+    console.log(urlparams);
+    const result = await axios.post('/api/create', urlparams, {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         }

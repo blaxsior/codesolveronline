@@ -1,0 +1,13 @@
+.container {
+    padding: 1rem;
+    border: 2px solid black;
+    border-radius: 4px;
+    width:90%;
+    max-width: 900px;
+}
+
+.list {
+    list-style: none;
+    counter-reset: section;
+}
+

@@ -1,0 +1,21 @@
+.item::before {
+    border-right: 1px rgb(190, 190, 190) solid;
+    padding-right: 0.5rem;
+    counter-increment: section;
+    content: counter(section);
+    display: inline;
+}
+
+.item {
+    margin: 0.75rem 0;
+    display: flex;
+    width:100%;
+    flex-flow: row nowrap;
+    gap: 0.5rem;
+    border-bottom: 1px rgb(190, 190, 190) solid;
+}
+
+.title {
+    text-decoration: none;
+    color:black;
+}

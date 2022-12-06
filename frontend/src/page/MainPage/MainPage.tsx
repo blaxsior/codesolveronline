@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import styles from './MainPage.module.css';
 
 const MainPage: React.FC = (props) => {

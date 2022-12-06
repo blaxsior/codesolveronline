@@ -33,7 +33,7 @@ const DescEditSection: React.FC<IDescSect> = (props) => {
                         spellCheck='false'
                         onChange={descChangeHandler} />
                 </div>
-                    <TCList />
+                    <TCList testcases={[{type:'', input:'', output:''}]}/>
                 <button className={`button`}
                     type="submit">제출하기</button>
             </Form>
