@@ -8,7 +8,7 @@ const server = e();
 server.use(cors());
 server.use(e.json());
 server.use(e.static("public", { extensions:['js']}));
-
+server.use(e.urlencoded({extended: true}));
 
 try {
     await db.$connect();

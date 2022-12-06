@@ -54,7 +54,7 @@ const createProblem = async (prob: IProbInput) => {
  * @param l_list 한번에 보여주는 리스트의 길이
  * @returns 
  */
-const getProblemLists = async (p_num: number, l_list = 10) => {
+const getProblemList = async (p_num: number, l_list = 10) => {
     const problemBasics = await db.problem.findMany({
         select: {
             id: true,
@@ -71,6 +71,6 @@ const getProblemLists = async (p_num: number, l_list = 10) => {
 export const programController = {
     getProblemById,
     createProblem,
-    getProblemLists
+    getProblemLists: getProblemList
 };
 
