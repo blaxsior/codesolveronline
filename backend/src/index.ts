@@ -2,13 +2,10 @@ import e from 'express';
 import { db } from './db/index.db.js';
 import cors from 'cors';
 import codeRouter from './routes/codeRouter.js';
-import { ScoringProvider } from './scoring/ScoringProvider.js';
-import { InitCodeController } from './controller/initcode.controller.js';
 
 const server = e();
 
 server.use(cors());
-server.use(e.urlencoded({extended: true}));
 server.use(e.json());
 server.use(e.static("public", { extensions:['js']}));
 

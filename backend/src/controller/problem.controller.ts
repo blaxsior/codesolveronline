@@ -38,7 +38,6 @@ const createProblem = async (prob: IProbInput) => {
             },
             initCodes: {
                 connect: [
-                    {id: 0},
                     {id: 1},
                     {id: 2},
                     {id: 3}
@@ -49,12 +48,21 @@ const createProblem = async (prob: IProbInput) => {
     return program !== null;
 }
 
-const getProblemLists = async () => {
+/**
+ * 유저가 선택한 페이지 번호에 대해 개수를 지정한다.
+ * @param p_num 유저가 선택한 페이지 번호.
+ * @param l_list 한번에 보여주는 리스트의 길이
+ * @returns 
+ */
+const getProblemLists = async (p_num: number, l_list = 10) => {
     const problemBasics = await db.problem.findMany({
         select: {
             id: true,
             title: true
-        }
+        },
+        // 앞 페이지의 문제 리스트는 스킵.
+        skip: p_num*l_list,
+        take: l_list
     });
 
     return problemBasics;
