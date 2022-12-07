@@ -12,7 +12,7 @@ export interface ISolProblem {
     initCodes: IInitCode[];   
 }
 
-interface IInitCode {
+export interface IInitCode {
     type: string;
     code: string;
 }

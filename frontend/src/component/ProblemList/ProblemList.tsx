@@ -10,6 +10,7 @@ const ProblemList: React.FC<{items: IProblemList}> = ({items}) => {
                 {items.map(item => {
                     return <ProblemItem {...item} key={item.id}/>
                 })}
+                {items.length === 0 &&<div>문제를 찾을 수 없습니다!</div>}
             </ul>
         </div>
     );

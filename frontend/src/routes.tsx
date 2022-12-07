@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from './layout/Layout';
 import CreatePage, {action as createPageAction} from './page/CreatePage/CreatePage';
-import ListPage from './page/ListPage/ListPage';
+import ListPage, {loader as listPageLoader} from './page/ListPage/ListPage';
 import MainPage from './page/MainPage/MainPage';
-import SolPage from './page/SolPage[id]/SolPage';
+import SolPage, {loader as solPageLoader, action as solPageAction} from './page/SolPage[id]/SolPage';
 
 
 
@@ -17,7 +17,9 @@ const browserRouter = createBrowserRouter([
             },
             {
                 path:'solve/:id',
-                element: <SolPage />
+                element: <SolPage />,
+                loader: solPageLoader,
+                action: solPageAction
             },
             {
                 path:'create',
@@ -26,7 +28,8 @@ const browserRouter = createBrowserRouter([
             },
             {
                 path:'list',
-                element: <ListPage/>
+                element: <ListPage/>,
+                loader: listPageLoader
             }
         ]
     }

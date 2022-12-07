@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActionFunction } from 'react-router-dom';
+import { ActionFunction, redirect, useActionData } from 'react-router-dom';
 import axios from 'axios';
 
 import DescEditSection from '../../component/DescEditSection/DescEditSection';
@@ -11,19 +11,28 @@ export const action: ActionFunction = async ({ request, params }) => {
     const darr = [...data] as string[][];
     const urlparams = new URLSearchParams(darr).toString();
     console.log(urlparams);
-    const result = await axios.post('/api/create', urlparams, {
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        }
-    });
+    try {
 
-    console.log(result.status);
-    console.log(result.data);
+        const result = await axios.post('/api/p/create', urlparams, {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        });
 
-    return null;
+        console.log(result.status);
+        console.log(result.data);
+
+    }
+    catch {
+        console.log("server error");
+        return false;
+    }
+    return redirect('/list');
 }
 
 const CreatePage: React.FC = (props) => {
+    const actiondata = useActionData() as boolean;
+
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
 

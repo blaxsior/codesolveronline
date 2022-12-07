@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { IInitCode } from '../../interfaces/Problem.interface';
 import AceEditor from 'react-ace';
 import styles from './CodeEditSection.module.css';
+
 
 //테마들
 import "ace-builds/src-min-noconflict/theme-xcode";
@@ -15,10 +17,30 @@ import "ace-builds/webpack-resolver";
 import "ace-builds/src-min-noconflict/mode-c_cpp";
 import "ace-builds/src-min-noconflict/mode-javascript";
 import "ace-builds/src-min-noconflict/mode-python";
+import { Form } from 'react-router-dom';
 
-const CodeEditSection: React.FC = (props) => {
+interface ICodeEditSectionProps {
+    initcodes: IInitCode[],
+    pid: number
+}
+
+const CodeEditSection: React.FC<ICodeEditSectionProps> = (props) => {
     const [lang, setLang] = useState('c_cpp');
     const [theme, setTheme] = useState('xcode');
+    const [code, setCode] = useState('code');
+
+    const codeMap = useMemo(() => {
+        const map = new Map<string, string>();
+        props.initcodes.forEach(it => map.set(it.type, it.code));
+        return map;
+    }, [props.initcodes]);
+
+    useEffect(() => {
+        const cod = codeMap.get(lang);
+        if (cod) {
+            setCode(cod);
+        }
+    }, [lang]);
 
     const langChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         setLang(e.target.value);
@@ -30,14 +52,14 @@ const CodeEditSection: React.FC = (props) => {
     return (
         <section className={styles['code_sect']}>
             <div className={styles['selects']}>
-            <h1>설정</h1>
-                <select name='lang' onChange={langChangeHandler}
+                <h1>설정</h1>
+                <select onChange={langChangeHandler}
                     value={lang}>
                     <option value='c_cpp'>c/cpp</option>
                     <option value='javascript'>javascript</option>
                     <option value='python'>python</option>
                 </select>
-                <select name='theme' onChange={themeChangeHandler}
+                <select onChange={themeChangeHandler}
                     value={theme}>
                     <option value='xcode'>xcode</option>
                     <option value='cloud9_night'>cloud9_night</option>
@@ -55,10 +77,40 @@ const CodeEditSection: React.FC = (props) => {
                     fontSize: 18,
                     useWorker: true
                 }}
+                value={code}
+                onChange={(value, e) => {
+                    setCode(value);
+                }}
             />
-            <div className={styles['down-form']}>
-                <div className={styles['result-line']}>section2</div>
-                <button className='button'>제출하기</button>
+            <div className={styles['result']}>
+                <p className={styles['result-line']}>
+                </p>
+            </div>
+            <div className={styles['button-flex']}>
+                <button className='button'>결과 지우기</button>
+                <Form method='post'>
+                    <input
+                        id='id'
+                        name='id'
+                        type='number'
+                        hidden={true}
+                        value={props.pid}
+                        readOnly={true}/>
+                    <input
+                        id='type'
+                        name='type'
+                        hidden={true}
+                        value={lang}
+                        readOnly={true}/>
+                    <textarea id='code'
+                        name='code'
+                        value={code}
+                        hidden={true}
+                        readOnly={true}/>
+                    <button
+                        className='button'
+                        type='submit'>제출하기</button>
+                </Form>
             </div>
         </section>
     )

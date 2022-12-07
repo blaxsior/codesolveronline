@@ -29,3 +29,34 @@
     width: calc(100% - 3rem) !important;
     height: 400px !important;
 }
+
+.result {
+    margin: 1rem 0;
+    border: black 3px solid !important;
+    width: calc(100% - 3rem) !important;
+    height: 5rem;
+    overflow-y:scroll;
+    overflow-x: hidden;
+    counter-reset: result;
+}
+
+.result-line::before {
+    counter-increment: result;
+    content: counter(result);
+    padding: 2px 3px;
+    border-right: 5px rgb(201, 201, 201) solid;
+}
+
+.result-line {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    /* word-break: break-word; */
+    text-overflow: ellipsis;
+}
+
+.button-flex {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
