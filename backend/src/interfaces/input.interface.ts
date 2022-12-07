@@ -1,10 +1,12 @@
+import { Problem, TestCase } from "@prisma/client";
+
 /**
  * 테스트케이스에 대한 인터페이스
  */
 export interface ITestCase {
     input?: string;
     output: string;
-    type: boolean;
+    type: string;
 }
 
 /**
@@ -20,7 +22,7 @@ export interface IProbInput {
  * 사용자가 코드 post할 때 정보
  */
 export interface IPSInput {
-    id: number;
+    id: string;
     code: string;
     type: Lang|string
 }

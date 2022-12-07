@@ -3,6 +3,7 @@ import { randomBytes } from "crypto";
 import { resolve } from "path";
 import { ITestCase } from "../interfaces/input.interface.js";
 import { promisify } from 'util';
+import { TestCase } from "@prisma/client";
 
 const exec = promisify(_exec);
 
@@ -52,7 +53,7 @@ export class ScoringManager {
             await exec(`cat > ${ScoringManager.temp_dir}/${this.id}.${this.extension} << EOF\n${code}\nEOF`, { timeout });
         }
         catch (err) {
-            console.log("create code file");
+            console.error("create code file");
             success = false;
         }
         return success;
@@ -71,30 +72,31 @@ export class ScoringManager {
                 await exec(this.compile_str, { timeout });
             }
             catch (err) {
-                console.log("init");
+                console.error("init");
+                console.log(err);
                 success = false;
             }
         }
         return success;
     }
 
-    /**
+    /** 
      * 주어진 입출력에 대해 실행한 후 해당 내역을 출력하는 코드.
      * @param tc testcase
      * @param timeout 시간 제한
      */
-    async run(tc: ITestCase, timeout: number = 5000) {
+    async run(tc: TestCase, timeout: number = 5000) {
         let success = true;
-        const code = `${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`;
-        console.log(code);
+        // const code = `${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`;
+        // console.log(code);
         try {
             const { stdout, stderr } = await exec(`${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`, { timeout });
             if ((stdout === tc.output) !== tc.type) {
-                console.log(stdout);
-                console.log(tc.output)
-                console.log(stdout === tc.output);
-                console.log(tc.type);
-                console.log((stdout === tc.output) != tc.type);
+                // console.log(stdout);
+                // console.log(tc.output)
+                // console.log(stdout === tc.output);
+                // console.log(tc.type);
+                // console.log((stdout === tc.output) != tc.type);
                 success = false;
             }
         }
@@ -111,11 +113,13 @@ export class ScoringManager {
     async exit() {
         let success = true;
 
-        exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`)
-        .catch((err) => {
-                console.log("exit");
-                success = false;
-        });
+        try {
+            const {stdout, stderr} = await exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);
+        }
+        catch(e) {
+            console.error("exit");
+            success = false;
+        }
         return success;
     }
 }

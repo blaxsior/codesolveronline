@@ -29,12 +29,21 @@ const getProblemById = async (id: number) => {
  * @returns 프로그램이 잘 생성되었는지...
  */
 const createProblem = async (prob: IProbInput) => {
-    const program = await db.problem.create({
+    const testcases = prob.testcases.map(it => {
+        let type = false;
+        if(it.type ==='true')
+        {
+            type = true;
+        }
+        return {...it, type};
+    });
+
+    const problem = await db.problem.create({
         data: {
             title: prob.title,
             description: prob.description,
             tests: {
-                create: prob.testcases
+                create: testcases
             },
             initCodes: {
                 connect: [
@@ -45,7 +54,7 @@ const createProblem = async (prob: IProbInput) => {
             }
         }
     });
-    return program !== null;
+    return problem !== null;
 }
 
 /**
@@ -68,9 +77,9 @@ const getProblemList = async (p_num: number, l_list = 10) => {
     return problemBasics;
 }
 
-export const programController = {
+export const ProblemController = {
     getProblemById,
     createProblem,
-    getProblemLists: getProblemList
+    getProblemList
 };
 

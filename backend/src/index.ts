@@ -1,7 +1,7 @@
 import e from 'express';
 import { db } from './db/index.db.js';
 import cors from 'cors';
-import codeRouter from './routes/codeRouter.js';
+import probRouter from './routes/probRouter.js';
 
 const server = e();
 
@@ -37,7 +37,7 @@ server.use((req,res,next) => {
     next();
 })
 
-server.use('/create', codeRouter);
+server.use('/p', probRouter);
 
 
 server.use('*', (req,res,next) =>{

@@ -20,7 +20,8 @@ model Problem {
 }
 
 model TestCase {
-  pid     Int     @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
+  pid     Int     
   problem Problem @relation(fields: [pid], references: [id], onDelete: Cascade)
   input   String?
   output  String
