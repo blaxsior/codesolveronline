@@ -91,21 +91,18 @@ export class ScoringManager {
         // console.log(code);
         try {
             const { stdout, stderr } = await exec(`${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`, { timeout });
-            if ((stdout === tc.output) !== tc.type) {
-                // console.log(stdout);
-                // console.log(tc.output)
-                // console.log(stdout === tc.output);
-                // console.log(tc.type);
-                // console.log((stdout === tc.output) != tc.type);
+            if ((stdout == tc.output) !== tc.type) {
+                console.log(stdout, tc.output);
+                console.log("result: ", stdout == tc.output);
+                console.log("type:", tc.type);
+                console.log((stdout == tc.output) != tc.type);
                 success = false;
             }
         }
         catch (err) {
-            if (err) {
-                // 나중에 에러 이유 등도 알 수 있도록 할 수 있다면...
-                console.error("run")
-                success = false;
-            }
+            // 나중에 에러 이유 등도 알 수 있도록 할 수 있다면...
+            console.error(err)
+            success = false;
         }
         return success;
     }
@@ -114,9 +111,9 @@ export class ScoringManager {
         let success = true;
 
         try {
-            const {stdout, stderr} = await exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);
+            const { stdout, stderr } = await exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);
         }
-        catch(e) {
+        catch (e) {
             console.error("exit");
             success = false;
         }

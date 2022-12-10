@@ -18,20 +18,6 @@ catch(err){
     console.error(`[error] ${err}`)
 }
 
-// const code = `#include <stdio.h>
-// int main() {
-//     printf("hello");
-// }`;
-
-// const code2 = "console.log('hello');";
-
-
-// const sp = ScoringProvider('javascript')!;
-// await sp.init(code2);
-// const success = await sp.run({output:"hello\n",type: true});
-// console.log("success is ", success);
-// await sp.exit();
-
 server.use((req,res,next) => {
     console.log(req.originalUrl);
     next();
@@ -43,4 +29,5 @@ server.use('/p', probRouter);
 server.use('*', (req,res,next) =>{
     res.send("error!");
 })
+
 server.listen(5000);

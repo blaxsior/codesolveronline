@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'react-router-dom';
+import { ActionFunction, LoaderFunction, redirect, useActionData, useLoaderData } from 'react-router-dom';
 import CodeEditSection from '../../component/CodeEditSection/CodeEditSection';
 import DescSection from '../../component/DescSection/DescSection';
 import { ISolProblem } from '../../interfaces/Problem.interface';
@@ -20,32 +20,34 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect('/');
 };
 
-export const action: ActionFunction = async ({ request }) => {
-    const data = (await request.formData()).entries();
-    const darr = [...data] as string[][];
-    const urlparams = new URLSearchParams(darr).toString();
+// export const action: ActionFunction = async ({ request }) => {
+//     const data = (await request.formData()).entries();
+//     const darr = [...data] as string[][];
+//     const urlparams = new URLSearchParams(darr).toString();
 
-    try {
-        const result = await axios.post('/api/p/score', urlparams, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        });
+//     try {
+//         const result = await axios.post('/api/p/score', urlparams, {
+//             headers: {
+//                 "Content-Type": "application/x-www-form-urlencoded",
+//             }
+//         });
 
-        console.log(result.data);
-        return result.data;
-    }
-    catch {
-        return "에러 발생";
-    }
-}
+//         console.log(result.data);
+//         return result.data;
+//     }
+//     catch {
+//         return {message: "에러 발생!"};
+//     }
+// }
+
+
 
 const SolPage: React.FC = (props) => {
-    const data = useLoaderData() as ISolProblem;
+    const pdata = useLoaderData() as ISolProblem;
     return (
         <div className={styles['page-layout']}>
-            <DescSection title={data.title} description={data.description} />
-            <CodeEditSection initcodes={data.initCodes} pid={data.id} />
+            <DescSection title={pdata.title} description={pdata.description} />
+            <CodeEditSection initcodes={pdata.initCodes} pid={pdata.id} />
         </div>
     );
 }

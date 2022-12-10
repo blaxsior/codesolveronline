@@ -1,4 +1,4 @@
-import { Request, RequestHandler, Router } from 'express';
+import { RequestHandler, Router } from 'express';
 import { IProbInput, IPSInput } from '../interfaces/input.interface';
 import { ProblemController } from '../controller/problem.controller.js';
 import { ScoringProvider } from '../scoring/ScoringProvider.js';

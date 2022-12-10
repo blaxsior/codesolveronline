@@ -3,7 +3,10 @@ import Layout from './layout/Layout';
 import CreatePage, {action as createPageAction} from './page/CreatePage/CreatePage';
 import ListPage, {loader as listPageLoader} from './page/ListPage/ListPage';
 import MainPage from './page/MainPage/MainPage';
-import SolPage, {loader as solPageLoader, action as solPageAction} from './page/SolPage[id]/SolPage';
+import SolPage, {
+    loader as solPageLoader, 
+    // action as solPageAction
+} from './page/SolPage[id]/SolPage';
 
 
 
@@ -19,7 +22,7 @@ const browserRouter = createBrowserRouter([
                 path:'solve/:id',
                 element: <SolPage />,
                 loader: solPageLoader,
-                action: solPageAction
+                // action: solPageAction
             },
             {
                 path:'create',

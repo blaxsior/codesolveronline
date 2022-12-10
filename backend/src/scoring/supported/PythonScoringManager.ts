@@ -5,7 +5,7 @@ export class PythonScoringManager extends ScoringManager {
         const extension = 'py';
         const params: ISManagerInputParams = {
             extension,
-            run: (path, id) => `node ${path}/${id}.${extension}`,
+            run: (path, id) => `python3 ${path}/${id}.${extension}`,
         };
 
         super({ ...params })

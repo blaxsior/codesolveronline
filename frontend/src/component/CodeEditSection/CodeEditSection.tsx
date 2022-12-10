@@ -17,17 +17,31 @@ import "ace-builds/webpack-resolver";
 import "ace-builds/src-min-noconflict/mode-c_cpp";
 import "ace-builds/src-min-noconflict/mode-javascript";
 import "ace-builds/src-min-noconflict/mode-python";
-import { Form } from 'react-router-dom';
+import { Form, useActionData } from 'react-router-dom';
+import axios from 'axios';
+import { useScoringMessage } from '../../hooks/useScoringMessage';
 
 interface ICodeEditSectionProps {
     initcodes: IInitCode[],
     pid: number
 }
 
+interface result {
+    message: string;
+}
+
 const CodeEditSection: React.FC<ICodeEditSectionProps> = (props) => {
     const [lang, setLang] = useState('c_cpp');
     const [theme, setTheme] = useState('xcode');
     const [code, setCode] = useState('code');
+    const {
+        message,
+        isPending,
+        submit: submitForm,
+        clear: clearMessage
+    } = useScoringMessage();
+
+    const rdata = useActionData() as result;
 
     const codeMap = useMemo(() => {
         const map = new Map<string, string>();
@@ -83,30 +97,34 @@ const CodeEditSection: React.FC<ICodeEditSectionProps> = (props) => {
                 }}
             />
             <div className={styles['result']}>
-                <p className={styles['result-line']}>
-                </p>
+                {
+                    message.map((v, idx) => <p className={styles['result-line']} key={idx}>{v}</p>)
+                }
             </div>
             <div className={styles['button-flex']}>
-                <button className='button'>결과 지우기</button>
-                <Form method='post'>
+                <button
+                    className='button'
+                    onClick={clearMessage}
+                >결과 지우기</button>
+                <Form method='post' onSubmit={submitForm}>
                     <input
                         id='id'
                         name='id'
                         type='number'
                         hidden={true}
                         value={props.pid}
-                        readOnly={true}/>
+                        readOnly={true} />
                     <input
                         id='type'
                         name='type'
                         hidden={true}
                         value={lang}
-                        readOnly={true}/>
+                        readOnly={true} />
                     <textarea id='code'
                         name='code'
                         value={code}
                         hidden={true}
-                        readOnly={true}/>
+                        readOnly={true} />
                     <button
                         className='button'
                         type='submit'>제출하기</button>
