@@ -12,7 +12,7 @@ int main() {
 }`},
     { type: "python", code: `def main():\n\tpass\n\t# 코드를 작성하세요\nmain()` },
     {
-        type: "javascript", code: `const readline = require('readline');
+        type: "javascript", code: `import readline from 'readline';
 const r = readline.createInterface({
     input: process.stdin,
     output: process.stdout

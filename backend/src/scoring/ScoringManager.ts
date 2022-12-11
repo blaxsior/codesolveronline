@@ -90,7 +90,7 @@ export class ScoringManager {
         // const code = `${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`;
         // console.log(code);
         try {
-            const { stdout, stderr } = await exec(`${tc.input ? `echo ${tc.input} |` : ""} ${this.run_str}`, { timeout });
+            const { stdout, stderr } = await exec(`${tc.input ? `echo "${tc.input}" |` : ""} ${this.run_str}`, { timeout });
             if ((stdout == tc.output) !== tc.type) {
                 console.log(stdout, tc.output);
                 console.log("result: ", stdout == tc.output);
@@ -106,6 +106,7 @@ export class ScoringManager {
         }
         return success;
     }
+
 
     async exit() {
         let success = true;
