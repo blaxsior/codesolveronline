@@ -2,8 +2,14 @@ import { db } from "../db/index.db.js";
 import { InitCode } from "@prisma/client";
 import { Lang } from "../interfaces/input.interface.js";
 
+/**
+ * 초기화 코드의 타입
+ */
 type Iinit = Omit<InitCode, "id" | "type"> & { type: string };
 
+/**
+ * 초기화를 위한 코드
+ */
 const data: Iinit[] = [
     {
         type: "c_cpp", code: `#include <stdio.h>
@@ -30,16 +36,30 @@ function main() {
 main();`}
 
 ]
-
+/**
+ * 데이터베이스에 초기 코드를 삽입하기 위한 목적의 함수.
+ * @returns 삽입된 코드 id[]
+ */
 const init = async () => {
     return await createInitCodes(data);
 }
 
+/**
+ * 다수의 초기 코드를 동시에 삽입하기 위한 목적의 함수.
+ * @param data 삽입할 초기 코드 목록
+ * @returns 삽입된 코드 id[]
+ */
 const createInitCodes = async (data: Iinit[]) => {
     const result = await db.$transaction(data.map(d => db.initCode.create({ data: d })));
     return result.map(it => it.id);
 }
 
+
+/**
+ * 초기 코드를 id를 기반으로 식별하여 삭제하기 위한 함수
+ * @param idx 삭제할 초기 코드의 id
+ * @returns 삭제한 초기 코드의 id
+ */
 const deleteInitCodeById = async (idx: number) => {
     const result = await db.initCode.delete({
         where: {
@@ -49,6 +69,12 @@ const deleteInitCodeById = async (idx: number) => {
 
     return result.id;
 }
+
+/**
+ * 초기 코드의 id를 기반으로 식별하여 삭제하기 위한 함수. 다수의 초기 코드에 대응한다.
+ * @param idx 삭제할 초기 코드의 id[]
+ * @returns 삭제한 초기 코드의 개수
+ */
 const deleteInitCodesById = async (idx: number[]) => {
     const result = await db.initCode.deleteMany({
         where: {

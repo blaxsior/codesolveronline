@@ -4,6 +4,9 @@ import { ProblemController } from '../controller/problem.controller.js';
 import { ScoringProvider } from '../scoring/ScoringProvider.js';
 import { TestcaseController } from '../controller/testcase.controller.js';
 
+/**
+ * 문제를 만드는데 사용되는 경로
+ */
 const createProblem: RequestHandler = async (req, res, next) => {
     const data = req.body as IProbInput;
 
@@ -16,6 +19,9 @@ const createProblem: RequestHandler = async (req, res, next) => {
     }
 }
 
+/**
+ * 문제 목록(list)을 얻는데 사용되는 경로
+ */
 const getProblems: RequestHandler = async (req, res, next) => {
     let pno = parseInt(req.params['pno'] ?? "0");
     if (isNaN(pno)) {
@@ -26,6 +32,9 @@ const getProblems: RequestHandler = async (req, res, next) => {
     return res.send(list);
 }
 
+/**
+ * solve 페이지에서 특정 문제 및 초기 코드를 얻기 위한 경로
+ */
 const getProblem: RequestHandler = async (req, res, next) => {
     const id = parseInt(req.params['id']);
     if (isNaN(id)) {
@@ -39,6 +48,9 @@ const getProblem: RequestHandler = async (req, res, next) => {
     return res.send(problem);
 }
 
+/**
+ * 문제를 채점하는데 사용되는 경로
+ */
 const scoreCode: RequestHandler = async (req, res, next) => {
     const data = req.body as IPSInput;
     const codeManager = ScoringProvider(data.type);
