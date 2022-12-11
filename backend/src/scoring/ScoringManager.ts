@@ -1,7 +1,6 @@
 import { exec as _exec } from "child_process";
 import { randomBytes } from "crypto";
 import { resolve } from "path";
-import { ITestCase } from "../interfaces/input.interface.js";
 import { promisify } from 'util';
 import { TestCase } from "@prisma/client";
 
@@ -17,14 +16,14 @@ export interface ISManagerInputParams {
 export class ScoringManager {
     private static readonly temp_dir = resolve('temp'); // C 파일등이 임시로 저장되는 위치
     // 차후 반드시 constructor에서 초기화해야 함!
-    private readonly id: string;
-    private readonly extension: string;
+    private readonly id: string; //랜덤 문자열- 파일의 이름
+    private readonly extension: string; // 현재 언어의 확장자.
 
-    private readonly run_str: string;
-    private readonly compile_str?: string;
-    private readonly exit_str?: string;
+    private readonly run_str: string; // 코드를 실행할 때 적용할 문자열
+    private readonly compile_str?: string; // 컴파일할 때 실행할 때 적용할 문자열
+    private readonly exit_str?: string; // 전체 과정 종료 시 cleanup에 적용할 문자열
 
-    constructor({ extension, run, onCompile, onExit }: ISManagerInputParams) {
+    protected constructor({ extension, run, onCompile, onExit }: ISManagerInputParams) {
         this.id = ScoringManager.getRandFileId();
         this.extension = extension;
 
@@ -92,10 +91,10 @@ export class ScoringManager {
         try {
             const { stdout, stderr } = await exec(`${tc.input ? `echo "${tc.input}" |` : ""} ${this.run_str}`, { timeout });
             if ((stdout == tc.output) !== tc.type) {
-                console.log(stdout, tc.output);
-                console.log("result: ", stdout == tc.output);
-                console.log("type:", tc.type);
-                console.log((stdout == tc.output) != tc.type);
+                // console.log(stdout, tc.output);
+                // console.log("result: ", stdout == tc.output);
+                // console.log("type:", tc.type);
+                // console.log((stdout == tc.output) != tc.type);
                 success = false;
             }
         }
