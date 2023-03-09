@@ -41,7 +41,7 @@ const CodeEditSection: React.FC<ICodeEditSectionProps> = (props) => {
         clear: clearMessage
     } = useScoringMessage();
 
-    const rdata = useActionData() as result;
+    // const rdata = useActionData() as result;
 
     const codeMap = useMemo(() => {
         const map = new Map<string, string>();

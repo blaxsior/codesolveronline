@@ -83,8 +83,9 @@ const scoreCode: RequestHandler = async (req, res, next) => {
         const result = await codeManager.run(tc);
         re_arr.push(result);
     }
-    const count = re_arr.filter(it => it === true).length;
-    if (count === re_arr.length) {
+    // 모든 값이 true인지 평가
+    const all_success = re_arr.every((v) => v === true);
+    if (all_success) {
         await codeManager.exit();
         return res.send({ message: "성공입니다!" });
     }
