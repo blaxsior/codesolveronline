@@ -3,6 +3,7 @@ import { randomBytes } from "crypto";
 import { resolve } from "path";
 import { promisify } from 'util';
 import { TestCase } from "@prisma/client";
+import { writeFile, unlink } from 'fs/promises';
 
 const exec = promisify(_exec);
 
@@ -49,7 +50,8 @@ export class ScoringManager {
     private async createCodeFile(code: string, timeout: number = 3000): Promise<boolean> {
         let success = true;
         try {
-            await exec(`cat > ${ScoringManager.temp_dir}/${this.id}.${this.extension} << EOF\n${code}\nEOF`, { timeout });
+            // await exec(`cat > ${ScoringManager.temp_dir}/${this.id}.${this.extension} << EOF\n${code}\nEOF`, { timeout });
+            await writeFile(`${ScoringManager.temp_dir}/${this.id}.${this.extension}`,code);
         }
         catch (err) {
             console.error("create code file");
@@ -95,6 +97,7 @@ export class ScoringManager {
                 // console.log("result: ", stdout == tc.output);
                 // console.log("type:", tc.type);
                 // console.log((stdout == tc.output) != tc.type);
+
                 success = false;
             }
         }
@@ -111,9 +114,8 @@ export class ScoringManager {
         let success = true;
 
         try {
-            const { stdout, stderr } = await exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);
-            console.log(stdout);
-            console.log(stderr);
+            // const { stdout, stderr } = await exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);       
+           await unlink(`${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);
         }
         catch (e) {
             console.error("exit");
