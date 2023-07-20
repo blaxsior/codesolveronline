@@ -111,10 +111,9 @@ export class ScoringManager {
         let success = true;
 
         try {
-            _exec("", (err, stdout, stderr) => {
-                
-            })
             const { stdout, stderr } = await exec(`rm ${ScoringManager.temp_dir}/${this.id}.${this.extension}; ${this.exit_str ?? ""}`);
+            console.log(stdout);
+            console.log(stderr);
         }
         catch (e) {
             console.error("exit");
